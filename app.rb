@@ -55,6 +55,14 @@ patch('/trains/:id') do
   erb(:train)
 end
 
+delete('/trains/:id') do
+  train = Train.find(params.fetch("id").to_i)
+  train.delete()
+  @user = "operator"
+  @trains = Train.all()
+  erb(:trains)
+end
+
 get('/trains/:id/edit') do
   @id = params.fetch('id').to_i
   erb(:train_edit)
