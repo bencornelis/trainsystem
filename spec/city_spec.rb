@@ -28,7 +28,7 @@ describe(City) do
 
   describe("#delete") do
     it("deletes a city from the cities table") do
-      city1 = City.new({:name => 'blue', :id => nil})
+      city1 = City.new({:name => 'Portland', :id => nil})
       city1.save()
       city2 = City.new({:name => 'red', :id => nil})
       city2.save()
@@ -36,5 +36,23 @@ describe(City) do
       expect(City.all()).to(eq([city2]))
     end
   end
+
+  describe("#update") do
+    it("updates the city object's name") do
+      city1 = City.new({:name => 'Portland', :id => nil})
+      city1.save()
+      city1.update({:name => 'Pdx'})
+      expect(city1.name()).to(eq('Pdx'))
+    end
+
+    it("updates the city in the database") do
+      city1 = City.new({:name => 'Portland', :id => nil})
+      city1.save()
+      city1.update({:name => 'Pdx'})
+      updated_city1 = City.find(city1.id)
+      expect(updated_city1.name).to(eq('Pdx'))
+    end
+  end
+
 
 end

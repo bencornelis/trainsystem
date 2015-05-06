@@ -30,8 +30,10 @@ class City
   end
 
   def update(attributes)
-    #update/edit
+    @name = attributes.fetch(:name)
+    DB.exec("UPDATE cities SET name = '#{@name}' WHERE id = #{@id};")
   end
+
 
   def delete
     DB.exec("DELETE FROM cities WHERE id = #{@id};")
