@@ -45,4 +45,5 @@ class City
     id = result.first.fetch("id").to_i
     City.new({:name => name, :id => id})
   end
+
 end
