@@ -66,6 +66,7 @@ end
 post('/trains/:id') do
   name = params.fetch("city_name")
   #will add cities multiple times
+  # either make find city by name method, or add select form
   city = City.new({:name => name, :id => nil})
   city.save()
   time = params.fetch("time")
