@@ -34,7 +34,7 @@ class City
   end
 
   def delete
-    #delete
+    DB.exec("DELETE FROM cities WHERE id = #{@id};")
   end
 
   def self.find(city_id)

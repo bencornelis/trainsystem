@@ -30,7 +30,8 @@ class Train
   end
 
   def update(attributes)
-    #update/edit
+    @line = attributes.fetch(:line)
+    DB.exec("UPDATE trains SET line = '#{@line}' WHERE id = #{@id};")
   end
 
   def delete

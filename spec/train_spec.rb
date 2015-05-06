@@ -35,4 +35,21 @@ describe(Train) do
       expect(Train.all()).to(eq([train2]))
     end
   end
+
+  describe("#update") do
+    it("updates the train object's line") do
+      train1 = Train.new({:line => 'blue', :id => nil})
+      train1.save()
+      train1.update({:line => 'red'})
+      expect(train1.line()).to(eq('red'))
+    end
+
+    it("updates the train in the database") do
+      train1 = Train.new({:line => 'blue', :id => nil})
+      train1.save()
+      train1.update({:line => 'red'})
+      updated_train1 = Train.find(train1.id)
+      expect(updated_train1.line).to(eq('red'))
+    end
+  end
 end
