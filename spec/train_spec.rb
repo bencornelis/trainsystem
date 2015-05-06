@@ -40,7 +40,7 @@ describe(Train) do
       train1.save()
       city1 = City.new({:name => 'Portland', :id => nil})
       city1.save()
-      train1.add_stop(city1.id)
+      train1.add_stop(city1.id, "12:30:00")
       train1.delete()
       expect(train1.stops()).to(eq([]))
     end
@@ -69,8 +69,8 @@ describe(Train) do
       train1.save()
       city1 = City.new({:name => 'Portland', :id => nil})
       city1.save()
-      train1.add_stop(city1.id)
-      expect(train1.stops()).to(eq([city1]))
+      train1.add_stop(city1.id, "12:30:00")
+      expect(train1.stops()).to(eq([{:city => city1, :time => "12:30:00"}]))
     end
   end
 end

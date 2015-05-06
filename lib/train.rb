@@ -46,18 +46,19 @@ class Train
     Train.new({:line => line, :id => id})
   end
 
-  def add_stop(city_id)
-    DB.exec("INSERT INTO stops (city_id, train_id) VALUES (#{city_id}, #{@id});")
+  def add_stop(city_id, time)
+    DB.exec("INSERT INTO stops (city_id, train_id, time) VALUES (#{city_id}, #{@id}, '#{time}');")
   end
 
   def stops
-    city_ids = DB.exec("SELECT (city_id) FROM stops WHERE train_id = #{@id};")
-    cities = []
-    city_ids.each() do |city_id|
-      city_id = city_id.fetch("city_id").to_i
+    results = DB.exec("SELECT * FROM stops WHERE train_id = #{@id};")
+    stops = []
+    results.each() do |result|
+      city_id = result.fetch("city_id").to_i
       city = City.find(city_id)
-      cities.push(city)
+      time = result.fetch("time")
+      stops.push({:city => city, :time => time})
     end
-    cities
+    stops
   end
 end
