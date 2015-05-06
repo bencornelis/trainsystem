@@ -63,6 +63,17 @@ delete('/trains/:id') do
   erb(:trains)
 end
 
+post('/trains/:id') do
+  name = params.fetch("city_name")
+  #will add cities multiple times
+  city = City.new({:name => name, :id => nil})
+  city.save()
+  time = params.fetch("time")
+  @train = Train.find(params.fetch("id").to_i)
+  @train.add_stop(city.id, time)
+  erb(:train)
+end
+
 get('/trains/:id/edit') do
   @id = params.fetch('id').to_i
   erb(:train_edit)
