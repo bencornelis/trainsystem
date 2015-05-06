@@ -34,6 +34,16 @@ describe(Train) do
       train1.delete()
       expect(Train.all()).to(eq([train2]))
     end
+
+    it("deletes all of the train's stops") do
+      train1 = Train.new({:line => 'blue', :id => nil})
+      train1.save()
+      city1 = City.new({:name => 'Portland', :id => nil})
+      city1.save()
+      train1.add_stop(city1.id)
+      train1.delete()
+      expect(train1.stops()).to(eq([]))
+    end
   end
 
   describe("#update") do
