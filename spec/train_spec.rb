@@ -16,4 +16,12 @@ describe(Train) do
       expect(Train.all()).to(eq([train1]))
     end
   end
+
+  describe(".find") do
+    it("returns a train with the given id") do
+      train1 = Train.new({:line => 'blue', :id => nil})
+      train1.save()
+      expect(Train.find(train1.id)).to(eq(train1))
+    end
+  end
 end

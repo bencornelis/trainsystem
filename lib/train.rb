@@ -38,6 +38,9 @@ class Train
   end
 
   def self.find(train_id)
-    #find train to change info
+    result = DB.exec("SELECT * FROM trains WHERE id = #{train_id};")
+    line = result.first.fetch("line")
+    id = result.first.fetch("id").to_i
+    Train.new({:line => line, :id => id})
   end
 end
