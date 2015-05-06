@@ -24,4 +24,15 @@ describe(Train) do
       expect(Train.find(train1.id)).to(eq(train1))
     end
   end
+
+  describe("#delete") do
+    it("deletes a train from the trains table") do
+      train1 = Train.new({:line => 'blue', :id => nil})
+      train1.save()
+      train2 = Train.new({:line => 'red', :id => nil})
+      train2.save()
+      train1.delete()
+      expect(Train.all()).to(eq([train2]))
+    end
+  end
 end

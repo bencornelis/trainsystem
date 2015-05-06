@@ -34,7 +34,7 @@ class Train
   end
 
   def delete
-    #delete
+    DB.exec("DELETE FROM trains WHERE id = #{@id};")
   end
 
   def self.find(train_id)
