@@ -53,8 +53,8 @@ class Train
     city_ids = DB.exec("SELECT (city_id) FROM stops WHERE train_id = #{@id};")
     cities = []
     city_ids.each() do |city_id|
-      id = city_id.fetch("city_id").to_i
-      city = City.find(id)
+      city_id = city_id.fetch("city_id").to_i
+      city = City.find(city_id)
       cities.push(city)
     end
     cities
