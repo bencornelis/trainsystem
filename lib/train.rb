@@ -13,11 +13,20 @@ class Train
   end
 
   def save
-    #create and assign an id
+    result = DB.exec("INSERT INTO trains (line) VALUES ('#{@line}') RETURNING id;")
+    @id = result.first.fetch("id").to_i
   end
 
   def self.all
-    #list and read trains
+    trains = []
+    results = DB.exec("SELECT * FROM trains;")
+    results.each() do |result|
+      line = result.fetch("line")
+      id = result.fetch("id").to_i
+      train = Train.new({:line => line, :id => id})
+      trains.push(train)
+    end
+    trains
   end
 
   def update(attributes)

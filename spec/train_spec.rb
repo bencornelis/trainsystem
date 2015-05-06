@@ -8,4 +8,12 @@ describe(Train) do
       expect(train1.==(train2)).to(eq(true))
     end
   end
+
+  describe("#save") do
+    it("add the train to the trains table") do
+      train1 = Train.new({:line => 'blue', :id => nil})
+      train1.save()
+      expect(Train.all()).to(eq([train1]))
+    end
+  end
 end
