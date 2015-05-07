@@ -18,7 +18,6 @@ get('/:user') do
   erb(:home)
 end
 
-
 get('/trains/new') do
   erb(:train_form)
 end
@@ -73,4 +72,10 @@ post('/cities/new') do
   new_city = City.new({:name => name, :id => nil})
   new_city.save()
   redirect('/operator')
+end
+
+get('/:user/cities/:id') do
+  @city = City.find(params.fetch("id").to_i)
+  @user = params.fetch("user")
+  erb(:train)
 end

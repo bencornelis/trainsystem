@@ -13,8 +13,8 @@ describe('creating a train', {:type => :feature}) do
   end
 end
 
-describe('changing a train name', {:type => :feature}) do
-  it('processes operator entry to change a train name') do
+describe('changing a train line', {:type => :feature}) do
+  it('processes operator entry to change a train line') do
     new_train = Train.new({:line => 'purple', :id => nil})
     new_train.save()
     visit("/operator/trains/#{new_train.id}")
@@ -55,5 +55,17 @@ describe('adding a city', {:type => :feature}) do
     fill_in('name', :with => 'Sebastopol')
     click_button('submit')
     expect(page).to have_content('Sebastopol')
+  end
+end
+
+describe('changing a city name', {:type => :feature}) do
+  it('processes operator entry to change a city name') do
+    new_city = City.new({:name => 'Portland', :id => nil})
+    new_city.save()
+    visit("/operator/cities/#{new_city.id}")
+    click_link("Edit")
+    fill_in("new_line", :with => "pdx")
+    click_button("Change name")
+    expect(page).to have_content("pdx")
   end
 end

@@ -54,5 +54,14 @@ describe(City) do
     end
   end
 
-
+  describe("#add_stop") do
+    it("adds a train at a given time to a city's stops") do
+      city1 = City.new({:name => 'Portland', :id => nil})
+      city1.save()
+      train1 = Train.new({:line => 'blue', :id => nil})
+      train1.save()
+      city1.add_stop(train1.id, "12:30:00")
+      expect(city1.stops()).to(eq([{:train => train1, :time => "12:30:00"}]))
+    end
+  end
 end

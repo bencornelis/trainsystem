@@ -1,0 +1,33 @@
+<h2>Change the line for this city:</h2>
+<form action="/cities/<%= @id %>" method="post">
+  <input name="_method" type="hidden" value="patch">
+  <div class="form-group">
+    <label for="new_name">New name:</label>
+    <input type="text" id="new_name" name="new_name" class="form-control">
+  </div>
+  <button type="submit" id="submit" class="btn btn-success">Change name</button>
+</form>
+
+<h2>Delete this city:</h2>
+<form action="/cities/<%= @id %>" method="post">
+  <input name="_method" type="hidden" value="delete">
+  <button type="submit" id="submit" class="btn btn-danger">Delete</button>
+</form>
+
+
+<% if @trains.any? %>
+  <h2>Add a stop for this city:</h2>
+  <form action="/cities/<%= @id %>" method="post">
+    <div class="form-group">
+      <label for="time">Time:</label>
+      <input type="text" id="time" name="time" class="form-control" placeholder="12:30:00">
+
+    <% @trains.each() do |train| %>
+      <div class="checkbox">
+        <input type="checkbox" id = "<%= train.id %>" name="train_id" value="<%= train.id %>"><%= city.name %>
+      </div>
+    <% end %>
+
+    <button type="submit" id="submit" class="btn btn-info">Add stop</button>
+  </form>
+<% end %>
