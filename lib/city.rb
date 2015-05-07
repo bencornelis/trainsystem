@@ -61,4 +61,20 @@ class City
     end
     stops
   end
+
+  def stops_by_train
+    stops_by_train = {}
+    stops.each do |stop|
+      train_id = stop.fetch(:train).id
+      time = stop.fetch(:time)
+      if stops_by_train.keys.include?(train_id)
+        stops_by_train[train_id] << time
+        stops_by_train[train_id].sort!
+      else
+        stops_by_train[train_id] = [time]
+      end
+
+    end
+    stops_by_train
+  end
 end

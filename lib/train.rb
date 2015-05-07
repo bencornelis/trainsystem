@@ -14,12 +14,6 @@ class Train
     same_line.&(same_id)
   end
 
-  # def eql?(other_train)
-  #   same_line = @line.eql?(other_train.line)
-  #   same_id = @id.eql?(other_train.id)
-  #   same_line.&(same_id)
-  # end
-
   def save
     result = DB.exec("INSERT INTO trains (line) VALUES ('#{@line}') RETURNING id;")
     @id = result.first.fetch("id").to_i

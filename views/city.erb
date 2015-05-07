@@ -2,10 +2,26 @@
 
 <% if @user == "operator" %>
   <a href="/cities/<%= @city.id %>/edit" type="button" class="btn btn-success">Edit</a>
-<% end %>
 
 <ul>
 <% @city.stops.each do |stop| %>
   <li><%= stop.fetch(:train).line %>: <%= stop.fetch(:time) %></li>
 <% end %>
 </ul>
+
+<% else %>
+
+<table class="table table-bordered">
+  <tbody>
+  <% @city.stops_by_train.each do |train_id, times| %>
+        <tr>
+          <th scope="row"><%= Train.find(train_id).line %></th>
+          <% times.each do |time| %>
+            <td><%= time %></td>
+          <% end %>
+        </tr>
+  <% end %>
+  </tbody>
+</table>
+
+<% end %>

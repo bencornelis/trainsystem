@@ -64,4 +64,19 @@ describe(City) do
       expect(city1.stops()).to(eq([{:train => train1, :time => "12:30:00"}]))
     end
   end
+
+  describe("#stops_by_train") do
+    it("returns an array of hashs each containing a train and the times the train stops in this city") do
+      city = City.new({:name => 'Berkeley', :id => nil})
+      city.save()
+      train1 = Train.new({:line => 'Yellow line', :id => nil})
+      train1.save()
+      train2 = Train.new({:line => 'MAX', :id => nil})
+      train2.save()
+      city.add_stop(train2.id, "12:31:13")
+      city.add_stop(train2.id, "23:13:00")
+      expect(city.stops_by_train()).to(eq({train2.id => ["12:31:13", "23:13:00"]}))
+    end
+  end
+
 end
