@@ -40,19 +40,13 @@ patch('/trains/:id') do
   @train = Train.find(params.fetch("id").to_i)
   new_line = params.fetch("new_line")
   @train.update({:line => new_line})
-  @user = "operator"
-  @trains = Train.all()
-  @cities = City.all()
-  erb(:home)
+  redirect('/operator')
 end
 
 delete('/trains/:id') do
   train = Train.find(params.fetch("id").to_i)
   train.delete()
-  @user = "operator"
-  @trains = Train.all()
-  @cities = City.all()
-  erb(:home)
+  redirect('/operator')
 end
 
 post('/trains/:id') do
@@ -60,7 +54,6 @@ post('/trains/:id') do
   time = params.fetch("time")
   train = Train.find(params.fetch("id").to_i)
   train.add_stop(city.id, time)
-  user = "operator"
   redirect("/operator/trains/#{train.id}")
 end
 
