@@ -14,17 +14,20 @@
   <button type="submit" id="submit" class="btn btn-danger">Delete</button>
 </form>
 
-<h2>Add a stop for this train:</h2>
-<form action="/trains/<%= @id %>" method="post">
-  <div class="form-group">
-    <label for="time">Time:</label>
-    <input type="text" id="time" name="time" class="form-control" placeholder="12:30:00">
 
-  <% @cities.each() do |city| %>
-    <div class="checkbox">
-      <input type="checkbox" id = "<%= city.id %>" name="city_id" value="<%= city.id %>"><%= city.name %>
-    </div>
-  <% end %>
+<% if @cities.any? %>
+  <h2>Add a stop for this train:</h2>
+  <form action="/trains/<%= @id %>" method="post">
+    <div class="form-group">
+      <label for="time">Time:</label>
+      <input type="text" id="time" name="time" class="form-control" placeholder="12:30:00">
 
-  <button type="submit" id="submit" class="btn btn-info">Add stop</button>
-</form>
+    <% @cities.each() do |city| %>
+      <div class="checkbox">
+        <input type="checkbox" id = "<%= city.id %>" name="city_id" value="<%= city.id %>"><%= city.name %>
+      </div>
+    <% end %>
+
+    <button type="submit" id="submit" class="btn btn-info">Add stop</button>
+  </form>
+<% end %>
