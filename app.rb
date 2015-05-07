@@ -105,3 +105,9 @@ post('/cities/:id') do
   city.add_stop(train.id, time)
   redirect("/operator/cities/#{city.id}")
 end
+
+get('/timetable/allstops!') do
+  @cities = City.all
+  @trains = Train.all
+  erb(:timetable)
+end
