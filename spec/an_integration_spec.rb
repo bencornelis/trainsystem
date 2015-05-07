@@ -69,3 +69,13 @@ describe('changing a city name', {:type => :feature}) do
     expect(page).to have_content("pdx")
   end
 end
+
+describe('deleting a city', {:type => :feature}) do
+  it('deletes a city chosen by an operator') do
+    new_city = City.new({:name => 'purple', :id => nil})
+    new_city.save()
+    visit("/cities/#{new_city.id}/edit")
+    click_button("Delete")
+    expect(page).to have_no_content("purple")
+  end
+end

@@ -91,3 +91,9 @@ patch('/cities/:id') do
   @city.update({:name => new_name})
   redirect('/operator')
 end
+
+delete('/cities/:id') do
+  city = City.find(params.fetch("id").to_i)
+  city.delete()
+  redirect('/operator')
+end
