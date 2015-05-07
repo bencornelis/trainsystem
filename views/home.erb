@@ -1,3 +1,29 @@
 <h1>Welcome to Our Train Center</h1>
-<a href="/<%= @user %>/trains">List of trains</a>
-<a href="/<%= @user %>/cities">List of cities</a>
+
+<div class='col-md-4'>
+  <h1>Trains</h1>
+
+  <ul>
+  <% @trains.each do |train| %>
+    <li><a href="/<%= @user %>/trains/<%= train.id %>"><%= train.line %></a></li>
+  <% end %>
+  </ul>
+
+  <% if @user == "operator" %>
+    <a href="/trains/new" type="button" class="btn btn-success">Add train</a>
+  <% end %>
+</div>
+
+<div class='col-md-4'>
+  <h1>Cities</h1>
+
+  <ul>
+  <% @cities.each do |city| %>
+    <li><a href="/<%= @user %>/cities/<%= city.id %>"><%= city.name %></a></li>
+  <% end %>
+  </ul>
+
+  <% if @user == "operator" %>
+    <a href="/cities/new" type="button" class="btn btn-success">Add city</a>
+  <% end %>
+</div>

@@ -12,27 +12,25 @@ get('/') do
 end
 
 get('/:user') do
+  @trains = Train.all()
+  @cities = City.all()
   @user = params.fetch('user')
   erb(:home)
 end
 
-get('/:user/trains') do
-  @user = params.fetch('user')
-  @trains = Train.all()
-  erb(:trains)
-end
 
 get('/trains/new') do
   erb(:train_form)
 end
 
-post('/operator/trains') do
+post('/operator/newtrain') do
   @user = "operator"
   line = params.fetch("line")
   new_train = Train.new({:line => line, :id => nil})
   new_train.save()
   @trains = Train.all()
-  erb(:trains)
+  @cities = City.all()
+  erb(:home)
 end
 
 get('/:user/trains/:id') do
@@ -46,7 +44,9 @@ patch('/trains/:id') do
   new_line = params.fetch("new_line")
   @train.update({:line => new_line})
   @user = "operator"
-  erb(:train)
+  @trains = Train.all()
+  @cities = City.all()
+  erb(:home)
 end
 
 delete('/trains/:id') do
@@ -54,7 +54,8 @@ delete('/trains/:id') do
   train.delete()
   @user = "operator"
   @trains = Train.all()
-  erb(:trains)
+  @cities = City.all()
+  erb(:home)
 end
 
 post('/trains/:id') do
@@ -63,7 +64,9 @@ post('/trains/:id') do
   @train = Train.find(params.fetch("id").to_i)
   @train.add_stop(city.id, time)
   @user = "operator"
-  erb(:train)
+  @trains = Train.all()
+  @cities = City.all()
+  erb(:home)
 end
 
 get('/trains/:id/edit') do
@@ -72,21 +75,17 @@ get('/trains/:id/edit') do
   erb(:train_edit)
 end
 
-get('/:user/cities') do
-  @user = params.fetch("user")
-  @cities = City.all()
-  erb(:cities)
-end
 
 get('/cities/new') do
   erb(:city_form)
 end
 
-post('/operator/cities') do
+post('/operator/newcity') do
   name = params.fetch("name")
   new_city = City.new({:name => name, :id => nil})
   new_city.save()
   @user = "operator"
+  @trains = Train.all()
   @cities = City.all()
-  erb(:cities)
+  erb(:home)
 end
