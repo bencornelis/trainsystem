@@ -1,0 +1,11 @@
+<h1>Tickets</h1>
+<h3>Choose a city to start:</h3>
+
+<form action="/ticket/trains">
+  <select id="cities" name="cities">
+    <% @cities.each do |city| %>
+      <option value="<%= city.id %>"><%= city.name %></option>
+    <% end %>
+  </select>
+  <button type="submit" class="btn btn-info">List trains</button>
+</form>

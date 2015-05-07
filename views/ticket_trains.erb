@@ -1,0 +1,12 @@
+<h1>Trains passing through your city:</h1>
+<h2>Click on a train to purchase a ticket for it</h2>
+<hr>
+<ul>
+<% @city.stops.each do |stop| %>
+  <li><a href="/success/<%= @city.id %>/<%= stop[:train].id %>"><%= stop[:train].line %></a>
+    <hr>
+    Stops in: <% stop[:train].stops_by_city.keys.each do |city_id| %><%= City.find(city_id).name %> <% end %>
+    <hr>
+  </li>
+<% end %>
+</ul>

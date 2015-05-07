@@ -93,3 +93,18 @@ describe('adding a stop to a city', {:type => :feature}) do
     expect(page).to have_content("purple: 01:23:45")
   end
 end
+
+describe('buying a ticket', {:type => :feature}) do
+  it('allows a user to view all trains passing through a particular city and see destinations on that page') do
+    new_train = Train.new({:line => 'purple', :id => nil})
+    new_train.save()
+    new_city = City.new({:name => 'Portland', :id => nil})
+    new_city.save()
+    new_city.add_stop(new_train.id, '12:20:03')
+    visit('/ticket/new')
+    select new_city.name, from: "cities"
+    click_button('List trains')
+    click_link('purple')
+    expect(page).to have_content('Thanks! The next stop for purple in Portland is at 12:20:03.')
+  end
+end

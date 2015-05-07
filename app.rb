@@ -111,3 +111,21 @@ get('/timetable/allstops!') do
   @trains = Train.all
   erb(:timetable)
 end
+
+get('/ticket/new') do
+  @cities = City.all
+  erb(:ticket)
+end
+
+get('/ticket/trains') do
+  @city = City.find(params.fetch("cities").to_i)
+  erb(:ticket_trains)
+end
+
+get('/success/:city_id/:train_id') do
+  city_id = params.fetch("city_id").to_i
+  train_id = params.fetch("train_id").to_i
+  @city = City.find(city_id)
+  @train = Train.find(train_id)
+  erb(:ticket_success)
+end
