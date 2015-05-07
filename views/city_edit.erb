@@ -1,4 +1,4 @@
-<h2>Change the line for this city:</h2>
+<h2>Change the name of this city:</h2>
 <form action="/cities/<%= @id %>" method="post">
   <input name="_method" type="hidden" value="patch">
   <div class="form-group">
@@ -24,7 +24,7 @@
 
     <% @trains.each() do |train| %>
       <div class="checkbox">
-        <input type="checkbox" id = "<%= train.id %>" name="train_id" value="<%= train.id %>"><%= city.name %>
+        <input type="checkbox" id = "<%= train.id %>" name="train_id" value="<%= train.id %>"><%= train.line %>
       </div>
     <% end %>
 

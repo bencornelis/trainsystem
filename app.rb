@@ -62,7 +62,6 @@ get('/trains/:id/edit') do
   erb(:train_edit)
 end
 
-
 get('/cities/new') do
   erb(:city_form)
 end
@@ -77,5 +76,18 @@ end
 get('/:user/cities/:id') do
   @city = City.find(params.fetch("id").to_i)
   @user = params.fetch("user")
-  erb(:train)
+  erb(:city)
+end
+
+get('/cities/:id/edit') do
+  @id = params.fetch('id').to_i
+  @trains = Train.all()
+  erb(:city_edit)
+end
+
+patch('/cities/:id') do
+  @city = City.find(params.fetch("id").to_i)
+  new_name = params.fetch("new_name")
+  @city.update({:name => new_name})
+  redirect('/operator')
 end

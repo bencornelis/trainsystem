@@ -61,6 +61,4 @@ class City
     end
     stops
   end
-
-
 end

@@ -64,7 +64,7 @@ describe('changing a city name', {:type => :feature}) do
     new_city.save()
     visit("/operator/cities/#{new_city.id}")
     click_link("Edit")
-    fill_in("new_line", :with => "pdx")
+    fill_in("new_name", :with => "pdx")
     click_button("Change name")
     expect(page).to have_content("pdx")
   end
