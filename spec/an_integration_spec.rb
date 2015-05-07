@@ -39,9 +39,11 @@ describe('adding a stop to a train', {:type => :feature}) do
   it('processes operator entry of time and city to add a stop to a train') do
     new_train = Train.new({:line => 'purple', :id => nil})
     new_train.save()
+    new_city = City.new({:name => 'Portland', :id => nil})
+    new_city.save()
     visit("/trains/#{new_train.id}/edit")
-    fill_in("city_name", :with => "Portland")
     fill_in("time", :with => "01:23:45")
+    check(new_city.id)
     click_button("Add stop")
     expect(page).to have_content("Portland: 01:23:45")
   end

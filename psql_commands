@@ -1,0 +1,6 @@
+CREATE DATABASE train_system;
+\c train_system;
+CREATE TABLE trains (id serial PRIMARY KEY, line varchar);
+CREATE TABLE cities (id serial PRIMARY KEY, name varchar);
+CREATE TABLE stops (id serial PRIMARY KEY, train_id int, city_id int, time time);
+CREATE DATABASE train_system_test WITH TEMPLATE train_system;

@@ -11,12 +11,9 @@ get('/') do
   erb(:index)
 end
 
-get('/operator') do
-  erb(:operator)
-end
-
-get('/rider') do
-  erb(:rider)
+get('/:user') do
+  @user = params.fetch('user')
+  erb(:home)
 end
 
 get('/:user/trains') do
@@ -64,18 +61,16 @@ delete('/trains/:id') do
 end
 
 post('/trains/:id') do
-  name = params.fetch("city_name")
-  #will add cities multiple times
-  # either make find city by name method, or add select form
-  city = City.new({:name => name, :id => nil})
-  city.save()
+  city = City.find(params.fetch("city_id").to_i)
   time = params.fetch("time")
   @train = Train.find(params.fetch("id").to_i)
   @train.add_stop(city.id, time)
+  @user = "operator"
   erb(:train)
 end
 
 get('/trains/:id/edit') do
   @id = params.fetch('id').to_i
+  @cities = City.all()
   erb(:train_edit)
 end
