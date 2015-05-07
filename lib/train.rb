@@ -1,3 +1,5 @@
+require "pry"
+
 class Train
   attr_reader :line, :id
 
@@ -11,6 +13,12 @@ class Train
     same_id = @id.eql?(other_train.id)
     same_line.&(same_id)
   end
+
+  # def eql?(other_train)
+  #   same_line = @line.eql?(other_train.line)
+  #   same_id = @id.eql?(other_train.id)
+  #   same_line.&(same_id)
+  # end
 
   def save
     result = DB.exec("INSERT INTO trains (line) VALUES ('#{@line}') RETURNING id;")
@@ -60,5 +68,21 @@ class Train
       stops.push({:city => city, :time => time})
     end
     stops
+  end
+
+  def stops_by_city
+    stops_by_city = {}
+    stops.each do |stop|
+      city_id = stop.fetch(:city).id
+      time = stop.fetch(:time)
+      if stops_by_city.keys.include?(city_id)
+        stops_by_city[city_id] << time
+        stops_by_city[city_id].sort!
+      else
+        stops_by_city[city_id] = [time]
+      end
+
+    end
+    stops_by_city
   end
 end
