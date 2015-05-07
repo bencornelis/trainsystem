@@ -97,3 +97,11 @@ delete('/cities/:id') do
   city.delete()
   redirect('/operator')
 end
+
+post('/cities/:id') do
+  train = Train.find(params.fetch("train_id").to_i)
+  time = params.fetch("time")
+  city = City.find(params.fetch("id").to_i)
+  city.add_stop(train.id, time)
+  redirect("/operator/cities/#{city.id}")
+end

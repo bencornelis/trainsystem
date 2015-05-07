@@ -79,3 +79,17 @@ describe('deleting a city', {:type => :feature}) do
     expect(page).to have_no_content("purple")
   end
 end
+
+describe('adding a stop to a city', {:type => :feature}) do
+  it('processes operator entry of time and train to add a stop to a city') do
+    new_train = Train.new({:line => 'purple', :id => nil})
+    new_train.save()
+    new_city = City.new({:name => 'Portland', :id => nil})
+    new_city.save()
+    visit("/cities/#{new_city.id}/edit")
+    fill_in("time", :with => "01:23:45")
+    check(new_train.id)
+    click_button("Add stop")
+    expect(page).to have_content("purple: 01:23:45")
+  end
+end
