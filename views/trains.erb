@@ -1,0 +1,11 @@
+<h1>Trains</h1>
+
+<ul>
+<% @trains.each do |train| %>
+  <li><a href="/<%= @user %>/trains/<%= train.id %>"><%= train.line %></a></li>
+<% end %>
+</ul>
+
+<% if @user == "operator" %>
+  <a href="/trains/new" type="button" class="btn btn-success">Add train</a>
+<% end %>

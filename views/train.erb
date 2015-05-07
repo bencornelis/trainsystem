@@ -1,0 +1,13 @@
+<h1>Train</h1>
+
+<h2>Line: <%= @train.line %></h2>
+
+<% if @user == "operator" %>
+  <a href="/trains/<%= @train.id %>/edit" type="button" class="btn btn-success">Edit</a>
+<% end %>
+
+<ul>
+<% @train.stops.each do |stop| %>
+  <li><%= stop.fetch(:city).name %>: <%= stop.fetch(:time) %></li>
+<% end %>
+</ul>
