@@ -22,9 +22,6 @@ get('/:user/trains') do
   erb(:trains)
 end
 
-get('/:user/cities') do
-end
-
 get('/trains/new') do
   erb(:train_form)
 end
@@ -73,4 +70,23 @@ get('/trains/:id/edit') do
   @id = params.fetch('id').to_i
   @cities = City.all()
   erb(:train_edit)
+end
+
+get('/:user/cities') do
+  @user = params.fetch("user")
+  @cities = City.all()
+  erb(:cities)
+end
+
+get('/cities/new') do
+  erb(:city_form)
+end
+
+post('/operator/cities') do
+  name = params.fetch("name")
+  new_city = City.new({:name => name, :id => nil})
+  new_city.save()
+  @user = "operator"
+  @cities = City.all()
+  erb(:cities)
 end

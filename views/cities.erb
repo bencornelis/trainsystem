@@ -1,0 +1,11 @@
+<h1>Cities</h1>
+
+<ul>
+<% @cities.each do |city| %>
+  <li><a href="/<%= @user %>/cities/<%= city.id %>"><%= city.name %></a></li>
+<% end %>
+</ul>
+
+<% if @user == "operator" %>
+  <a href="/cities/new" type="button" class="btn btn-success">Add city</a>
+<% end %>

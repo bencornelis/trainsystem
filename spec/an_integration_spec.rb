@@ -48,3 +48,12 @@ describe('adding a stop to a train', {:type => :feature}) do
     expect(page).to have_content("Portland: 01:23:45")
   end
 end
+
+describe('adding a city', {:type => :feature}) do
+  it('processes operator entry to add a new city') do
+    visit('/cities/new')
+    fill_in('name', :with => 'Sebastopol')
+    click_button('submit')
+    expect(page).to have_content('Sebastopol')
+  end
+end
