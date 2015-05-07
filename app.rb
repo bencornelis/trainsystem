@@ -23,14 +23,11 @@ get('/trains/new') do
   erb(:train_form)
 end
 
-post('/operator/newtrain') do
-  @user = "operator"
+post('/trains/new') do
   line = params.fetch("line")
   new_train = Train.new({:line => line, :id => nil})
   new_train.save()
-  @trains = Train.all()
-  @cities = City.all()
-  erb(:home)
+  redirect('/operator')
 end
 
 get('/:user/trains/:id') do
@@ -61,12 +58,10 @@ end
 post('/trains/:id') do
   city = City.find(params.fetch("city_id").to_i)
   time = params.fetch("time")
-  @train = Train.find(params.fetch("id").to_i)
-  @train.add_stop(city.id, time)
-  @user = "operator"
-  @trains = Train.all()
-  @cities = City.all()
-  erb(:home)
+  train = Train.find(params.fetch("id").to_i)
+  train.add_stop(city.id, time)
+  user = "operator"
+  redirect("/operator/trains/#{train.id}")
 end
 
 get('/trains/:id/edit') do
@@ -80,12 +75,9 @@ get('/cities/new') do
   erb(:city_form)
 end
 
-post('/operator/newcity') do
+post('/cities/new') do
   name = params.fetch("name")
   new_city = City.new({:name => name, :id => nil})
   new_city.save()
-  @user = "operator"
-  @trains = Train.all()
-  @cities = City.all()
-  erb(:home)
+  redirect('/operator')
 end
